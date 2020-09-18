@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
     <!-- favicon -->
-    <link rel="icon" type="image/svg+xml" href="/src/images/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="../src/images/favicon.svg">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-    <!-- src/css -->
-    <link rel="stylesheet" href="./src/css/main.css">
+    <!-- src/css -->/
+    <link rel="stylesheet" href="../src/css/main.css">
 
     <title>Parking Garage Automation</title>
 </head>
@@ -23,26 +23,34 @@
         <header class="masthead mb-auto">
             <div class="inner">
                 <h3 class="masthead-brand d-flex align-items-center justify-content-center">
-                    <img src="./src/images/logo.svg" alt="logo" class="mx-2">
+                    <img src="../src/images/logo.svg" alt="logo" class="mx-2">
                     Group D
                 </h3>
                 <nav class="nav nav-masthead justify-content-center">
-                    <a class="nav-link active" href="#">Home</a>
+                    <a class="nav-link" href="/">Home</a>
                     <a class="nav-link" href="./about.html">About</a>
-                    <a class="nav-link" href="./login.html">Login</a>
+                    <a class="nav-link active" href="./login.html">Login</a>
                     <a class="nav-link" href="./signup.html">Sign Up</a>
                 </nav>
             </div>
         </header>
 
         <main role="main" class="inner cover">
-            <h1 class="cover-heading">Shopping Center Parking</h1>
-            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo omnis quam fugiat animi
-                doloremque ut quis molestias saepe, corporis tenetur odio nobis similique delectus repudiandae autem
-                asperiores adipisci? Amet, quae?</p>
-            <p class="lead">
-                <a href="./reservation.html" class="btn btn-lg btn-outline-primary">Make a Reservation &#8594;</a>
-            </p>
+            <form class="form-signin">
+                <img class="mb-4" src="../src/images/logo.svg" alt="logo" width="72" height="72">
+                <h1 class="h3 mb-3 font-weight-normal">Please Log In</h1>
+                <label for="inputEmail" class="sr-only">Email address</label>
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required
+                    autofocus="">
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" value="remember-me"> Remember me
+                    </label>
+                </div>
+                <button class="btn btn-lg btn-outline-primary btn-block" type="submit">Login</button>
+            </form>
         </main>
 
         <footer class="mastfoot mt-auto">
@@ -53,7 +61,7 @@
     </div>
 
     <!-- src/js -->
-    <script src="./src/js/main.js"></script>
+    <script src="../src/js/main.js"></script>
 
     <!-- jQuery, Popper.JS, Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
