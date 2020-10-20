@@ -1,0 +1,14 @@
+{"_id":"507f191e810c19729de860ea",
+    "email":"Tony@example.com",
+    "firstName":"Tony",
+    "lastName":"Banh",
+    "password":"test1234",
+    "phone":"408-123-4567",
+    "paymentMethods":[
+        {"cardName":"Tony Banh","cardNumber":"123456789111111","expMM":"1","expYY":"21","cvv":"123"}
+    ],
+    "vehicles":[
+        "TEST123",
+        "123ABC"
+    ]
+}

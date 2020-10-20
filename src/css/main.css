@@ -107,18 +107,18 @@ body>div>.container {
 /*
 * Form sign in
 */
-.form-signin {
+.form_login {
     width: 100%;
     max-width: 330px;
     padding: 15px;
     margin: auto;
 }
 
-.form-signin .checkbox {
+.form_login .checkbox {
     font-weight: 400;
 }
 
-.form-signin .form-control {
+.form_login .form-control {
     position: relative;
     box-sizing: border-box;
     height: auto;
@@ -126,17 +126,17 @@ body>div>.container {
     font-size: 16px;
 }
 
-.form-signin .form-control:focus {
+.form_login .form-control:focus {
     z-index: 2;
 }
 
-.form-signin input[type="email"] {
+.form_login input[type="email"] {
     margin-bottom: -1px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
 }
 
-.form-signin input[type="password"] {
+.form_login input[type="password"] {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;

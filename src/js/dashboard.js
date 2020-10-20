@@ -1,25 +1,58 @@
 // Example user
-const user = {
-    _id: "507f191e810c19729de860ea",
-    email: "Tony@example.com",
-    firstName: "Tony",
-    lastName: "Banh",
-    password: "test1234",
-    phone: "408-123-4567",
-    paymentMethods: [{
-        cardName: "John Smith",
-        cardNumber: "123456789111111",
-        expMM: "1",
-        expYY: "21",
-        cvv: "123"
-    }],
-    vehicles: [
-        "TEST123",
-        "123ABC"
-    ]
+let user = {};
+
+// Functions and Event handlers
+function updateMyProfile() {
+    const accountInfo = {};
+    $("form").find("input").each(function () {
+        const nameAttr = this.getAttribute("name");
+        if (nameAttr !== "confirmPassword") {
+            accountInfo[nameAttr] = this.value || user[nameAttr];
+        }
+    })
+
+    user = Object.assign(user, accountInfo);
+
+    // TODO: POST request to save to database
+
+    $(".emailAddress").text(user.email);        // Show the user's email under My Account
 }
 
-$(".emailAddress").text(user.email);
+function updateMyVehicles() {
+    const vehicles = [...user.vehicles];
+}
+
+function updateMyPaymentMethod() {
+
+}
+
+/**
+ * @desc - Adds an update button to the parent element
+ *
+ * @param {HTMLElement} parent
+ * @param {callback fn()} updateUserSettings
+ */
+function addUpdateButton(parent, updateUserSettings) {
+    $(parent).append(`<button type="button" class="btn btn-outline-primary btn-sm btn_update">Update</button>`)
+    $(parent).append(`<div class="valid-feedback"><p class="mb-0 update_feedback>Updated!</p></div>`);
+
+    // Update button event
+    $(".btn_update").click(function (event) {
+        event.preventDefault();
+
+        const form = $(this).parents("form")[0];
+
+        // Removes required attribute from input tags
+        $(form).find("input").each(function () {
+            this.required = false;
+        })
+
+        // Valid form --> update
+        if (form.reportValidity()) {
+            updateUserSettings();
+        }
+    })
+}
 
 function clearActive() {
     $(".active").removeClass("active");
@@ -29,18 +62,18 @@ function setActive(el) {
     el.classList.add("active");
 }
 
-function updateForm(setting) {
+function showSetting(setting) {
     $(".form_title").text(setting);
     const parentElement = $(".sidebar_info");
 
     switch (setting) {
         case "My Profile":
             showMyProfile(parentElement, user);
-            $(parentElement).append(`<button type="button" class="btn btn-outline-primary btn-lg btn_update">Update</button>`)
-
+            addUpdateButton(parentElement.find(".card-body"), updateMyProfile);
             break;
         case "My Vehicles":
             showMyVehicles(parentElement, user.vehicles);
+            addUpdateButton(parentElement, updateMyVehicles);
             break;
         case "My Payment Methods":
             showMyPaymentMethod(parentElement, user.paymentMethods[0]);
@@ -54,15 +87,26 @@ function updateForm(setting) {
     }
 }
 
-window.addEventListener("DOMContentLoaded", function () {
-    updateForm($(".active").find(".sidebar_text").text().trim());
+// Event Listeners
+
+$(document).ready(async function () {
+    const response = await fetch("/user.json");
+
+    if (response.ok) {
+        user = await response.json();
+    } else {
+        console.error(`Errpr: ${response.status}`)
+    }
+
+    showSetting($(".active").find(".sidebar_text").text().trim());  // shows My Profile on page load
+    $(".emailAddress").text(user.email);        // Show the user's email under My Account
 });
 
 $(".list-group-item").click(function (event) {
     event.preventDefault();
     clearActive();
     setActive(this);
-    updateForm($(this).find(".sidebar_text").text().trim());
+    showSetting($(this).find(".sidebar_text").text().trim());
 })
 
 $(".signOut").click(function (event) {
