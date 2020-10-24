@@ -59,7 +59,8 @@
                         </div>
                         <p class="sidebar_subtitle bg-light p-2 text-muted mb-1">Account Settings</p>
                         <div class="list-group list-group-flush mb-4">
-                            <a href="#" class="list-group-item list-group-item-action active">
+                            <a href="#" class="list-group-item list-group-item-action active"
+                                data-sidebar="My Profile">
                                 <span class="sidebar_icon mr-2">
                                     <svg width="1.25em" height="1.25em" viewBox="0 0 16 16" class="bi bi-person"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -70,7 +71,8 @@
                                 <span class="sidebar_text" value="My Profile">My Profile</span>
                             </a>
 
-                            <a href="#" class="list-group-item list-group-item-action">
+                            <a href="#" class="list-group-item list-group-item-action"
+                                data-sidebar="My Vehicles">
                                 <span class="sidebar_icon mr-2">
                                     <svg width="1.25em" height="1.25em" viewBox="0 0 16 16" class="bi bi-truck"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -81,7 +83,8 @@
                                 <span class="sidebar_text">My Vehicles</span>
                             </a>
 
-                            <a href="#" class="list-group-item list-group-item-action ">
+                            <a href="#" class="list-group-item list-group-item-action"
+                                data-sidebar="My Payment Method">
                                 <span class="sidebar_icon mr-2">
                                     <svg width="1.25em" height="1.25em" viewBox="0 0 16 16" class="bi bi-credit-card"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -96,8 +99,7 @@
                         </div>
                         <p class="sidebar_subtitle bg-light p-2 text-muted mb-1">Reservations</p>
                         <div class="list-group list-group-flush mb-4">
-                            <a href="#" class="list-group-item list-group-item-action">
-
+                            <a href="#" class="list-group-item list-group-item-action" data-sidebar="My Reservations">
                                 <span class="sidebar_icon mr-2">
                                     <svg width="1.25em" height="1.25em" viewBox="0 0 16 16" class="bi bi-calendar-check"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -115,7 +117,7 @@
 
                 <div class=" col-md-8 col-sm-12">
                     <h3 class="card-title font-weight-bold sidebar_title p-0 form_title"></h3>
-                    <form class="form_update">
+                    <form id="form_update">
                     </form>
 
                 </div>
