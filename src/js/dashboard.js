@@ -6,7 +6,7 @@
  * @returns {Object} - user object
  */
 async function fetchUserData() {
-    const response = await fetch("/user.json");
+    const response = await fetch("./user.json");
     const user = await response.json();
     return user;
 }
@@ -79,7 +79,7 @@ function displaySetting(user) {
     $(".form_title").text(setting);
     switch (setting) {
         case "My Profile":
-            $("#form_update").load("/modals/MyProfile.html", function () {
+            $("#form_update").load("./modals/MyProfile.html", function () {
                 initMyProfile();
                 showMyProfile(user.profile);
                 addUpdateButton(updateMyProfile(user));
@@ -88,7 +88,7 @@ function displaySetting(user) {
             });
             break;
         case "My Vehicles":
-            $("#form_update").load("/modals/MyVehicles.html", function () {
+            $("#form_update").load("./modals/MyVehicles.html", function () {
                 initMyVehicles();
                 showMyVehicles(user.vehicles);
                 addUpdateButton(updateMyVehicles(user));
@@ -97,7 +97,7 @@ function displaySetting(user) {
             });
             break;
         case "My Payment Method":
-            $("#form_update").load("/modals/MyPaymentMethod.html", function () {
+            $("#form_update").load("./modals/MyPaymentMethod.html", function () {
                 initMyPaymentMethod();
                 showMyPaymentMethod(user.paymentMethod);
                 addUpdateButton(updateMyPaymentMethod(user));
@@ -106,7 +106,7 @@ function displaySetting(user) {
             });
             break;
         case "My Reservations":
-            $("#form_update").load("/modals/MyReservations.html");
+            $("#form_update").load("./modals/MyReservations.html");
             break;
         default:
             console.error(`Error: ${setting} is not an available setting.`);
