@@ -13,7 +13,7 @@ let user = {};
 
 
 // DOM Elements
-const formSignUp = document.querySelector(".form-signup");
+const formSignUp = document.querySelector(".form_signup");
 
 const inputs_accountRegistration = document.querySelectorAll("#accountRegistration input");
 const input_password = document.querySelector(".input_password");
