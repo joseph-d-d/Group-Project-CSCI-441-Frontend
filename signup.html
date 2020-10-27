@@ -45,70 +45,61 @@
       <form class="form_signup">
 
         <!-- Account Registration -->
-        <div class="card mb-2 registrationSection" id="accountRegistration">
-          <div class="card-header">
-            Account Information
-          </div>
-          <div>
-            <div class="card-body">
-              <!-- Email -->
-              <div class="form-group">
-                <label for="input_email">Email *</label>
-                <input type="email" class="form-control input_email" name="email" id="input_email"
-                  placeholder="John.Smith@example.com" required>
-              </div>
+        <div class="card mb-2 registrationSection" id="profileSection">
+          <div class="card-header">Account Information</div>
+          <div class="card-body">
+            <!-- Email -->
+            <div class="form-group">
+              <label for="input_email">Email</label>
+              <input type="email" autocomplete="off" class="form-control" name="email" id="input_email"
+                placeholder="John.Smith@example.com" required>
+            </div>
 
-              <!-- Password -->
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="input_password">Password *</label>
-                  <input type="password" class="form-control input_password" name="password" id="input_password"
-                    placeholder="Password" minlength="8" required>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="input_confirmPassword">Confirm Password *</label>
-                  <input type="password" class="form-control input_confirmPassword" name="confirmPassword"
-                    id="input_confirmPassword" placeholder="Confirm Password" minlength="8" required>
-                </div>
+            <!-- Password -->
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="input_password">Password</label>
+                <input type="password" autocomplete="off" class="form-control" name="password" id="input_password"
+                  placeholder="Password" minlength="8" required>
               </div>
-
-              <!-- Name -->
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="input_firstName">First Name</label>
-                  <input type="text" class="form-control input_firstName" name="firstName" id="input_firstName"
-                    placeholder="John">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="input_lastName">Last Name</label>
-                  <input type="text" class="form-control input_lastName" name="lastName" id="input_lastName"
-                    placeholder="Smith">
-                </div>
+              <div class="form-group col-md-6">
+                <label for="input_confirmPassword">Confirm Password</label>
+                <input type="password" autocomplete="off" class="form-control" name="confirmPassword"
+                  id="input_confirmPassword" placeholder="Confirm Password" minlength="8" required>
               </div>
+            </div>
 
-              <!-- Contact -->
-              <div class="form-group">
-                <label for="input_phone">Phone Number</label>
-                <input type="tel" class="form-control input_phone" id="input_phone" name="phone"
-                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890">
+            <!-- Name -->
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="input_firstName">First Name</label>
+                <input type="text" class="form-control" name="firstName" id="input_firstName" placeholder="John">
               </div>
+              <div class="form-group col-md-6">
+                <label for="input_lastName">Last Name</label>
+                <input type="text" class="form-control" name="lastName" id="input_lastName" placeholder="Smith">
+              </div>
+            </div>
 
+            <!-- Contact -->
+            <div class="form-group">
+              <label for="input_phone">Phone Number</label>
+              <input type="tel" class="form-control" id="input_phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                placeholder="123-456-7890">
             </div>
           </div>
         </div>
 
         <!-- Vehicle Registration -->
-        <div class="card mb-2 registrationSection" id="vehicleRegistration">
-          <div class="card-header">
-            Vehicle Information
-          </div>
+        <div class="card mb-2 registrationSection" id="vehiclesSection">
+          <div class="card-header">Vehicles Information</div>
           <div>
             <div class="card-body row">
 
               <!-- License Plate # Input -->
               <div class="col-sm my-2">
                 <div class="form-group">
-                  <input type="text" class="form-control input_licensePlate" name="licensePlate" id="input_licensePlate"
+                  <input type="text" class="form-control" name="licensePlate" id="input_licensePlate"
                     pattern="[a-zA-Z0-9]{1,7}" placeholder="Enter License Plate">
                   <div class="invalid-feedback invalidLicensePlate">
                     License Plate already exists.
@@ -116,25 +107,23 @@
                 </div>
 
                 <div>
-                  <a href="javascript:void" class="btn btn-outline-primary btn-block btn-sm btn_addVehicle"
-                    role="button">Add
+                  <a href="" class="btn btn-outline-primary btn-block btn-sm btn_addVehicle" role="button">Add
                     Vehicle</a>
                 </div>
               </div>
 
               <!-- License Plates List -->
               <div class="col-sm my-2">
-                <ul class="list-group list_vehicles"></ul>
+                <ul class="list-group" id="list_vehicles">
+                </ul>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Payment Registration -->
-        <div class="card mb-2 registrationSection" id="paymentRegistration">
-          <div class="card-header">
-            Payment Information
-          </div>
+        <div class="card mb-2 registrationSection" id="paymentMethodSection">
+          <div class="card-header">Payment Method Information</div>
           <div>
             <div class="card-body">
 
@@ -145,8 +134,7 @@
                   <label for="input_cardName">
                     <h6>Card Holder's Name</h6>
                   </label>
-                  <input type="text" id="input_cardName" name="cardName" placeholder="John Smith"
-                    class="form-control input_cardName" data>
+                  <input type="text" id="input_cardName" name="cardName" placeholder="John Smith" class="form-control">
                 </div>
 
                 <!-- Card Number -->
@@ -155,7 +143,7 @@
                     <h6>Card Number</h6>
                   </label>
                   <input type="text" id="input_cardNumber" name="cardNumber" placeholder="Valid card number"
-                    pattern="(\d{4}[-. ]?){4}|\d{4}[-. ]?\d{6}[-. ]?\d{5}" class="form-control input_cardNumber">
+                    pattern="(\d{4}[-. ]?){4}|\d{4}[-. ]?\d{6}[-. ]?\d{5}" class="form-control">
                 </div>
 
                 <!-- Exp and CVV -->
@@ -167,11 +155,11 @@
                       </label>
                       <div class="input-group">
                         <label for="input_expMM"></label>
-                        <input type="number" id="input_expMM" placeholder="MM" name="expMM"
-                          class="form-control input_expMM" min="1" max="12" step="1">
+                        <input type="number" id="input_expMM" placeholder="MM" name="expMM" class="form-control" min="1"
+                          max="12" step="1">
                         <label for="input_expYY"></label>
-                        <input type="number" id="input_expYY" placeholder="YY" name="expYY"
-                          class="form-control input_expYY" max="99" step="1">
+                        <input type="number" id="input_expYY" placeholder="YY" name="expYY" class="form-control"
+                          max="99" step="1">
                       </div>
                     </div>
                   </div>
@@ -180,29 +168,18 @@
                       <label for="input_cvv">
                         <h6>CVV</h6>
                       </label>
-                      <input type="text" id="input_cvv" placeholder="123" name="cvv" class="form-control input_cvv"
+                      <input type="text" id="input_cvv" placeholder="123" name="cvv" class="form-control"
                         pattern="^\d{3,4}$">
                     </div>
                   </div>
                 </div>
-                <div class="row justify-content-around">
-                  <a href="javascript:void" class="btn btn-outline-primary btn-sm my-1 btn_savePayment"
-                    role="button">Save Payment</a>
-
-                  <a href="javascript:void" class="btn btn-outline-danger btn-sm my-1 btn_deletePayment"
-                    role="button">Delete Payment</a>
-                </div>
-              </div>
-              <div class="valid-feedback paymentInfoFeedback">
-                <p class="mb-0">Saved!</p>
               </div>
             </div>
           </div>
         </div>
 
-
         <!-- Submit -->
-        <div class="card registrationSection" id="submitForm">
+        <div class="card registrationSection" id="completeRegistrationSection">
           <div class="card-header">
             Complete Registration
           </div>
@@ -231,7 +208,11 @@
   <script src="src/assets/bootstrap/js/bootstrap.min.js"></script>
 
   <!-- src/js -->
-  <script src="src/js/signup.js"></script>
+  <script src="./src/js/utils.js"></script>
+  <script src="./src/js/components/MyProfile.js"></script>
+  <script src="./src/js/components/MyVehicles.js"></script>
+  <script src="./src/js/components/MyPaymentMethod.js"></script>
+  <script src="./src/js/signup.js"></script>
 
 </body>
 
