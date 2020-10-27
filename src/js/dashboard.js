@@ -64,7 +64,6 @@ function addUpdateButton(updateUserSettings) {
                 $(".update_feedback").hide();
             }, 5000);
         }
-        console.log(user);
     })
 }
 
@@ -81,7 +80,7 @@ function displaySetting(user) {
         case "My Profile":
             $("#form_update").load("./modals/MyProfile.html", function () {
                 initMyProfile();
-                showMyProfile(user.profile);
+                showMyProfile(user);
                 addUpdateButton(updateMyProfile(user));
 
                 // TODO: send updated profile to database
@@ -117,7 +116,7 @@ function displaySetting(user) {
 
 $(document).ready(async function () {
     user = await fetchUserData();
-    $(".emailAddress").text(user.profile.email);        // Show the user's email under My Account
+    $(".emailAddress").text(user.email);        // Show the user's email under My Account
     displaySetting(user);
 });
 

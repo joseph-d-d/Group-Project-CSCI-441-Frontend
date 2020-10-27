@@ -86,5 +86,7 @@ function updateMyPaymentMethod(user) {
         $("#paymentMethodSection input").each(function () {
             user.paymentMethod[$(this).attr("name")] = $(this).val();
         })
+
+        user.modified_date = formatDate(new Date());
     }
 }
