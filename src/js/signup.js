@@ -2,13 +2,11 @@
 
 $(document).ready(function () {
     let user = {
-        profile: {
-            email: '',
-            password: '',
-            firstName: '',
-            lastName: '',
-            phone: ''
-        },
+        email: '',
+        password: '',
+        firstName: '',
+        lastName: '',
+        phone: '',
         vehicles: [],
         paymentMethod: {
             cardName: '',
@@ -16,7 +14,10 @@ $(document).ready(function () {
             expMM: '',
             expYY: '',
             cvv: ''
-        }
+        },
+        permissions: '',
+        modified_date: '',
+        modified_by: '',
     };
 
     // Initialize with event listeners and custom validations

@@ -150,5 +150,6 @@ function showMyVehicles(vehicles = []) {
 function updateMyVehicles(user) {
     return function () {
         user.vehicles = [...getVehiclesList()]
+        user.modified_date = formatDate(new Date());
     }
 }

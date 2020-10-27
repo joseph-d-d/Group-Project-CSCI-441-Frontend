@@ -18,8 +18,8 @@ function initMyProfile() {
  *
  * @param {Object} user - user object
  */
-function showMyProfile(profile) {
-    const { email, password, firstName, lastName, phone } = profile || {};
+function showMyProfile(user) {
+    const { email, password, firstName, lastName, phone } = user || {};
     $("#input_email").val(email);
     $("#input_password").val(password);
     $("#input_confirmPassword").val(password);
@@ -38,8 +38,10 @@ function updateMyProfile(user) {
     return function () {
         $("#profileSection input").each(function () {
             if ($(this).attr("name") !== "confirmPassword") {
-                user.profile[$(this).attr("name")] = $(this).val();
+                user[$(this).attr("name")] = $(this).val();
             }
         })
+
+        user.modified_date = formatDate(new Date());
     }
 };
