@@ -115,9 +115,32 @@ function displaySetting(user) {
 // Event Listeners
 
 $(document).ready(async function () {
-    user = await fetchUserData();
-    $(".emailAddress").text(user.email);        // Show the user's email under My Account
-    displaySetting(user);
+    const getUserById = function(id) {
+        return new Promise(function(resolve, reject) {
+            $.ajax({
+                method: 'GET',
+                crossDomain: true,
+                dataType: 'json',
+                contentType: 'application/json',
+                url: 'http://localhost:3000/users/' + id,
+                async: true,
+                success: function(data) {
+                    resolve(data);
+                },
+                error: function(result, status, error) {
+                    reject(result + " " + status + " " + error);
+                }
+            })
+        })
+    }
+
+    getUserById("5f979ff52219e2a514852b47").then(function(foundUser) {
+        user = foundUser;
+        $(".emailAddress").text(user.email);        // Show the user's email under My Account
+        displaySetting(user);
+    }).catch(function(err) {
+        console.log(err);
+    })
 });
 
 $(".list-group-item").click(function (event) {
