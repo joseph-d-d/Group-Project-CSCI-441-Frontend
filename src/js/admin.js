@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
 
    populate_users();
    get_payment_rate();
@@ -14,15 +14,15 @@ $(document).ready(function () {
     * Set jQuery listeners for modal triggers
     */
 
-   $("#selectUserProfileIcon").on("click", function () {
+   $("#selectUserProfileIcon").on("click", function() {
       $("#select_user_modal").modal();
    });
 
-   $("#selectParkingSpaceIcon").on("click", function () {
+   $("#selectParkingSpaceIcon").on("click", function() {
       $("#select_space_modal").modal();
    });
 
-   $("#adjustPaymentRateIcon").on("click", function () {
+   $("#adjustPaymentRateIcon").on("click", function() {
       $("#adjust_payment_rate").modal();
    });
 
@@ -30,11 +30,11 @@ $(document).ready(function () {
     * Add event listener for dynamically generated elements
     */
 
-   $("body").on("click", "button.userButton", function () {
+   $("body").on("click", "button.userButton", function() {
       alert($("#selectUserModalDropdown").val());
    });
 
-   $("body").on("click", "button.adjustButton", function () {
+   $("body").on("click", "button.adjustButton", function() {
       adjust_payment_rate();
    });
 
@@ -47,10 +47,10 @@ $(document).ready(function () {
          contentType: 'application/json',
          url: 'http://localhost:3000/users/' + id,
          async: true,
-         success: function (data) {
+         success: function(data) {
             alert(111);
          },
-         error: function (result, status, error) {
+         error: function(result, status, error) {
             alert(result + " " + status + " " + error);
          }
       });
@@ -64,13 +64,13 @@ $(document).ready(function () {
          contentType: 'application/json',
          url: 'http://localhost:3000/users',
          async: true,
-         success: function (data) {
+         success: function(data) {
             console.log(data);
-            $.each(data, function (key, value) {
+            $.each(data, function(key, value) {
                $("#selectUserModalDropdown").append("<option value='" + value._id + "'>" + value.firstName + " " + value.lastName + "</option>")
             });
          },
-         error: function (result, status, error) {
+         error: function(result, status, error) {
             alert(result + " " + status + " " + error);
          }
       });
@@ -84,11 +84,11 @@ $(document).ready(function () {
          contentType: 'application/json',
          url: 'http://localhost:3000/payrate',
          async: true,
-         success: function (data) {
+         success: function(data) {
             $("#paymentRate").val(data.payment_rate_per_hour);
             $("#paymentRate").data("id", data._id);
          },
-         error: function (result, status, error) {
+         error: function(result, status, error) {
             alert("Unable to retrieve payment rate. Please try again.");
          }
       });
@@ -113,11 +113,11 @@ $(document).ready(function () {
          contentType: 'application/json',
          crossDomain: true,
          async: false,
-         success: function (data) {
+         success: function(data) {
             alert("Successfully updated!");
             get_payment_rate();
          },
-         error: function (result, status, error) {
+         error: function(result, status, error) {
             alert("Unable to retrieve payment rate. Please try again.");
          }
       });
