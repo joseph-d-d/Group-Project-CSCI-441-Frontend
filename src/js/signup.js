@@ -15,9 +15,9 @@ $(document).ready(function(){
             expYY: "",
             cvv: "",
         },
-        permissions: "",
+        permissions: "1", // Default permissions
         modified_date: "",
-        modified_by: "",
+        modified_by: "1",
     };
 
     // Initialize with event listeners and custom validations
@@ -57,7 +57,9 @@ $(document).ready(function(){
                     window.location.href = "/login";
                 },
                 error: function(result, status, error){
-                    console.error(result + " " + status + " " + error);
+                    if (result.status === 403) {
+                        alert("Account already exists. Please try again");
+                    }
                 },
             });
         }
