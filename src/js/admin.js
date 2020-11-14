@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
 
    populate_users();
    get_payment_rate();
@@ -67,7 +67,6 @@ $(document).ready(function () {
          success: function(data) {
             console.log(data);
             $.each(data, function(key, value) {
-
                $("#selectUserModalDropdown").append("<option value='" + value._id + "'>" + value.firstName + " " + value.lastName + "</option>")
             });
          },
@@ -99,12 +98,12 @@ $(document).ready(function () {
       let amount = $("#paymentRate").val();
       let id = $("#paymentRate").data("id");
 
-      if ( !amount || !id ) {
+      if (!amount || !id) {
          alert("Unable to retrieve payment rate id or amount");
          return;
       }
 
-      var data = {"payment_rate_per_hour": amount};
+      var data = { "payment_rate_per_hour": amount };
 
       var ajax_call = $.ajax({
          method: 'PATCH',

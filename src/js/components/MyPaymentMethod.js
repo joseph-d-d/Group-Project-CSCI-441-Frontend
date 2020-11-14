@@ -5,15 +5,15 @@
  *
  * @returns {boolean} - true if valid, otherwise false
  */
-function validatePaymentInformation() {
+function validatePaymentInformation(){
     let isValid = false;
 
-    $("#paymentMethodSection input").each(function () {
+    $("#paymentMethodSection input").each(function(){
         // Upon clicking "Save Payment Method", make all input fields for Payment Information required
         this.required = true;
         isValid = this.reportValidity();
         if (!isValid) return isValid;
-    })
+    });
 
     return isValid;
 }
@@ -23,21 +23,21 @@ function validatePaymentInformation() {
  *
  * @returns {boolean} - Returns true if all input fields in payment method section is empty, false otherwise
  */
-function paymentMethodIsEmpty() {
+function paymentMethodIsEmpty(){
     let isEmpty = true;
-    $("#paymentMethodSection input").each(function () {
-        if ($(this).val().trim() !== '') {
+    $("#paymentMethodSection input").each(function(){
+        if ($(this).val().trim() !== "") {
             isEmpty = false;
         }
-    })
+    });
     return isEmpty;
 }
 
 /**
  * @desc Set all input fields in the payment method section to be required
  */
-function paymentMethodRequired() {
-    $("#paymentMethodSection input").each(function () {
+function paymentMethodRequired(){
+    $("#paymentMethodSection input").each(function(){
         this.required = true;
     });
 }
@@ -45,8 +45,8 @@ function paymentMethodRequired() {
 /**
  * @desc Set all input fields in the payment method section to not be required
  */
-function paymentMethodNotRequired() {
-    $("#paymentMethodSection input").each(function () {
+function paymentMethodNotRequired(){
+    $("#paymentMethodSection input").each(function(){
         this.required = false;
     });
 }
@@ -54,9 +54,9 @@ function paymentMethodNotRequired() {
 /**
  * @desc - set the custom validation for My Payment Method section
  */
-function initMyPaymentMethod() {
+function initMyPaymentMethod(){
     // Set minimum expiration year YY on payment method
-    const currentYear = (new Date()).getFullYear();
+    const currentYear = new Date().getFullYear();
     $("#input_expYY").attr("min", (currentYear % 100).toString());
 }
 
@@ -65,7 +65,7 @@ function initMyPaymentMethod() {
 *
 * @param {Object} paymentMethod - Object containing the payment method information
 */
-function showMyPaymentMethod(paymentMethod) {
+function showMyPaymentMethod(paymentMethod){
     const { cardName, cardNumber, expMM, expYY, cvv } = paymentMethod || {};
     $("#input_cardName").val(cardName);
     $("#input_cardNumber").val(cardNumber);
@@ -80,11 +80,14 @@ function showMyPaymentMethod(paymentMethod) {
  * @param {Object} user - User object containing the user's information
  * @returns {function} - Returns a callback function to be called by the Update button
  */
-function updateMyPaymentMethod(user) {
+function updateMyPaymentMethod(user){
     paymentMethodIsEmpty();
-    return function () {
-        $("#paymentMethodSection input").each(function () {
+    return function(){
+        $("#paymentMethodSection input").each(function(){
             user.paymentMethod[$(this).attr("name")] = $(this).val();
-        })
-    }
+        });
+
+        user.modified_date = formatDate(new Date());
+        return user;
+    };
 }
