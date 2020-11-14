@@ -31,7 +31,7 @@ $(document).ready(function () {
     */
 
    $("body").on("click", "button.userButton", function() {
-      alert($("#selectUserModalDropdown").val());
+      window.location ="./dashboard.html?uval=" + $('#selectUserModalDropdown').val();
    });
 
    $("body").on("click", "button.adjustButton", function() {
@@ -67,7 +67,8 @@ $(document).ready(function () {
          success: function(data) {
             console.log(data);
             $.each(data, function(key, value) {
-               $("#selectUserModalDropdown").append("<option value='" + value._id + "'>" + value.first_name + " " + value.last_name + "</option>")
+
+               $("#selectUserModalDropdown").append("<option value='" + value._id + "'>" + value.firstName + " " + value.lastName + "</option>")
             });
          },
          error: function(result, status, error) {
