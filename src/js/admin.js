@@ -1,5 +1,32 @@
 $(document).ready(function() {
 
+   const getAuthenticatedUser = function () {
+      return new Promise(function (resolve, reject) {
+         $.ajax({
+            method: "GET",
+            crossDomain: true,
+            dataType: "json",
+            contentType: "application/json",
+            url: "/users/loggedIn",
+            async: false,
+            success: function (data) {
+               resolve(data);
+            },
+            error: function (result, status, error) {
+               reject(result + " " + status + " " + error);
+            },
+         });
+      });
+   };
+
+   getAuthenticatedUser()
+       .then(function (foundUser) {
+          //Nothing needs to happen here. Redirect occurs if not authenticated.
+       })
+       .catch(function (err) {
+          window.location.href = "./dashboard.html";
+       });
+
    populate_users();
    get_payment_rate();
 
@@ -45,7 +72,7 @@ $(document).ready(function() {
          crossDomain: true,
          dataType: 'json',
          contentType: 'application/json',
-         url: 'http://localhost:3000/users/' + id,
+         url: '/users/' + id,
          async: true,
          success: function(data) {
             alert(111);
@@ -62,10 +89,9 @@ $(document).ready(function() {
          crossDomain: true,
          dataType: 'json',
          contentType: 'application/json',
-         url: 'http://localhost:3000/users',
+         url: '/users',
          async: true,
          success: function(data) {
-            console.log(data);
             $.each(data, function(key, value) {
                $("#selectUserModalDropdown").append("<option value='" + value._id + "'>" + value.firstName + " " + value.lastName + "</option>")
             });
@@ -82,7 +108,7 @@ $(document).ready(function() {
          crossDomain: true,
          dataType: 'json',
          contentType: 'application/json',
-         url: 'http://localhost:3000/payrate',
+         url: '/payrate',
          async: true,
          success: function(data) {
             $("#paymentRate").val(data.payment_rate_per_hour);
@@ -108,7 +134,7 @@ $(document).ready(function() {
       var ajax_call = $.ajax({
          method: 'PATCH',
          datatype: "json",
-         url: 'http://localhost:3000/payrate/' + id,
+         url: '/payrate/' + id,
          data: JSON.stringify(data),
          contentType: 'application/json',
          crossDomain: true,
