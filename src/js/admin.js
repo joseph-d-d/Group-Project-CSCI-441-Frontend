@@ -1,6 +1,35 @@
+let parkingSpaces = [];
 $(document).ready(function() {
 
+   const getAuthenticatedUser = function () {
+      return new Promise(function (resolve, reject) {
+         $.ajax({
+            method: "GET",
+            crossDomain: true,
+            dataType: "json",
+            contentType: "application/json",
+            url: "/users/loggedIn",
+            async: false,
+            success: function (data) {
+               resolve(data);
+            },
+            error: function (result, status, error) {
+               reject(result + " " + status + " " + error);
+            },
+         });
+      });
+   };
+
+   getAuthenticatedUser()
+       .then(function (foundUser) {
+          //Nothing needs to happen here. Redirect occurs if not authenticated.
+       })
+       .catch(function (err) {
+          window.location.href = "./dashboard.html";
+       });
+
    populate_users();
+   get_parking_spaces();
    get_payment_rate();
 
    /*
@@ -31,7 +60,38 @@ $(document).ready(function() {
     */
 
    $("body").on("click", "button.userButton", function() {
-      alert($("#selectUserModalDropdown").val());
+      window.location ="./dashboard.html?uval=" + $('#selectUserModalDropdown').val();
+   });
+
+   $("body").on("click", "button.spaceButton", function() {
+      $(".statusButton").show();
+      $("#selectSpaceStatus").show();
+   });
+
+   $("body").on("click", "button.statusButton", function() {
+      let space = $("#selectSpaceFromDropdown").val();
+      let status = $("#selectSpaceStatus").val();
+      let verified = false;
+
+      if ( space && status && typeof status != "undefined" ) {
+         $.each(parkingSpaces.parkingSpots, function(key, value) {
+            $.each(value, function(key2, value2) {
+               if ( value2[0] == space ) {
+                  if ( value2[1] != status ) {
+                     parkingSpaces.parkingSpots[key][key2][1] = status;
+                     verified = true;
+                  }
+               }
+            });
+         });
+
+         if ( !verified ) alert("Status did not change");
+         else {
+            update_parking_spaces();
+         }
+      }
+      else alert("Error retrieving parking space information. Please try refreshing the screen.");
+
    });
 
    $("body").on("click", "button.adjustButton", function() {
@@ -45,7 +105,7 @@ $(document).ready(function() {
          crossDomain: true,
          dataType: 'json',
          contentType: 'application/json',
-         url: 'http://localhost:3000/users/' + id,
+         url: '/users/' + id,
          async: true,
          success: function(data) {
             alert(111);
@@ -62,16 +122,67 @@ $(document).ready(function() {
          crossDomain: true,
          dataType: 'json',
          contentType: 'application/json',
-         url: 'http://localhost:3000/users',
+         url: '/users',
          async: true,
          success: function(data) {
-            console.log(data);
             $.each(data, function(key, value) {
-               $("#selectUserModalDropdown").append("<option value='" + value._id + "'>" + value.firstName + " " + value.lastName + "</option>")
+               $("#selectUserModalDropdown")
+                   .append("<option value='" + value._id + "'>" + value.firstName + " " + value.lastName + "</option>")
             });
          },
          error: function(result, status, error) {
             alert(result + " " + status + " " + error);
+         }
+      });
+   }
+
+   function get_parking_spaces() {
+      var ajax_call = $.ajax({
+         method: 'GET',
+         crossDomain: true,
+         dataType: 'json',
+         contentType: 'application/json',
+         url: '/parkingLot',
+         async: true,
+         success: function(data) {
+            parkingSpaces = data;
+            $.each(data.parkingSpots, function(key,value) {
+               $.each(value, function(key2, value2) {
+                  if ( value2[1] != "store" ) {
+                     $("#selectSpaceFromDropdown")
+                         .append("<option value='" + value2[0] + "'>" +
+                         "Space: " + value2[0] + " - Status: " + value2[1] +
+                         "</option>");
+                  }
+               });
+            });
+         },
+         error: function(result, status, error) {
+            alert("Unable to retrieve payment rate. Please try again.");
+         }
+      });
+   }
+
+   function update_parking_spaces() {
+
+      var ajax_call = $.ajax({
+         method: 'PATCH',
+         datatype: "json",
+         url: '/parkingLot',
+         data: JSON.stringify(parkingSpaces),
+         contentType: 'application/json',
+         crossDomain: true,
+         async: true,
+         success: function(data) {
+            alert("Successfully updated!");
+            $("#selectSpaceFromDropdown").html("<option selected>Select a Parking Space</option>");
+            get_parking_spaces();
+            $("#selectSpaceStatus").val("");
+            $(".statusButton").hide();
+            $("#selectSpaceStatus").hide();
+         },
+         error: function(result, status, error) {
+            alert("Unable to update parking space. Please contact a system administrator.");
          }
       });
    }
@@ -82,7 +193,7 @@ $(document).ready(function() {
          crossDomain: true,
          dataType: 'json',
          contentType: 'application/json',
-         url: 'http://localhost:3000/payrate',
+         url: '/payrate',
          async: true,
          success: function(data) {
             $("#paymentRate").val(data.payment_rate_per_hour);
@@ -108,7 +219,7 @@ $(document).ready(function() {
       var ajax_call = $.ajax({
          method: 'PATCH',
          datatype: "json",
-         url: 'http://localhost:3000/payrate/' + id,
+         url: '/payrate/' + id,
          data: JSON.stringify(data),
          contentType: 'application/json',
          crossDomain: true,

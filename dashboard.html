@@ -41,6 +41,9 @@
           </button>
           <div class="navbar-collapse collapse" id="navbarCollapse">
             <ul class="navbar-nav ml-auto">
+              <li class="nav-item" id="navAdmin">
+                <a class="nav-link" href="/admin">Admin</a>
+              </li>
               <li class="nav-item">
                 <a class="nav-link signOut" href="/logout">Logout</a>
               </li>
@@ -181,7 +184,6 @@
                 </div>
               </div>
             </div>
-
             <div class="col-md-8 col-sm-12">
               <h3
                 class="card-title font-weight-bold sidebar_title p-0 form_title"
@@ -189,11 +191,25 @@
               <form id="form_update" action="/dashboard" method="put"></form>
             </div>
           </div>
+          <div class="row justify-content-left">
+            <div class="col">
+              <a class="btn btn-outline-primary" id="modifyPermissions">
+                Modify User Permissions
+              </a>
+            </div>
+          </div>
+          <div class="col" id="modalIncludes"></div>
         </div>
       </main>
 
       <!-- Footer -->
       <footer class="mt-auto footer text-center">
+        <div class="inner my-4">
+          <p class="mb-0" id="adminUserView">
+            <span style="color:red;">Administrator: </span>
+            <span class="font-weight-bold" id="adminName"></span>
+          </p>
+        </div>
         <div class="inner my-4">
           <p class="mb-0">&#169; Group D - CSCI 441 VB</p>
         </div>

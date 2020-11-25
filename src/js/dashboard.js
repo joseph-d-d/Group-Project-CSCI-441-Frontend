@@ -4,6 +4,20 @@ $(document).ready(async function () {
   let user = {}; // example user
 
   /**
+   * Administrative navigation button is hidden by default
+   */
+  $("#navAdmin").hide();
+  $("#modifyPermissions").hide();
+
+  /**
+   * Search for GET variables in the URL
+   */
+  var administrativeUser  = {};
+  var userId = 0;
+  const webAddress = window.location.search;
+  const getVariables = new URLSearchParams(webAddress);
+
+  /**
    * @desc Removes the "active" from class list
    */
   function clearActive() {
@@ -31,7 +45,7 @@ $(document).ready(async function () {
         dataType: "json",
         contentType: "application/json",
         url: "/users/loggedIn",
-        async: true,
+        async: false,
         success: function (data) {
           resolve(data);
         },
@@ -42,11 +56,32 @@ $(document).ready(async function () {
     });
   };
 
+  const getAdministrativeUserSelection = function(userId) {
+    return new Promise(function (resolve, reject) {
+      $.ajax({
+        method: "GET",
+        crossDomain: true,
+        dataType: "json",
+        contentType: "application/json",
+        url: "/users/" + userId,
+        async: false,
+        success: function (data) {
+          resolve(data);
+        },
+        error: function (result, status, error) {
+          reject(result + " " + status + " " + error);
+        },
+      });
+    });
+  }
+
   /**
    * @desc Sends a PUT request to /dashboard, which updates the user in the db
    * @param {Object} user - User data
    */
   function updateUser(user) {
+    //Bypass email check on the backend if this is an administrative update request
+    if ( !$.isEmptyObject(administrativeUser) )  user.adminUpdate = 1;
     // Send Ajax PUT request to server
     $.ajax({
       type: "PUT",
@@ -168,14 +203,67 @@ $(document).ready(async function () {
     }
   }
 
+  function administrativeSetup(admin) {
+    $("#navAdmin").show();
+    /**
+     * 1. Admins should not modify their own account
+     * 2. Only super user are able to modify other administrators, but not other super users
+     * 3. Super users cannot modify other super users
+     *
+     */
+    if ( admin._id !== user._id &&
+        user.permissions !== 3 &&
+        !(user.permissions === 2 && admin.permissions < 3) ) {
+      //Display admin content
+      $("#adminName").text(admin.firstName + " " + admin.lastName);
+      $("#modifyPermissions").show();
+      $("#modalIncludes").load("modals/admin/modal_modify_user_permissions.html");
+
+      //Set event listener for modify permissions button
+      $("#modifyPermissions").on("click", function () {
+        if (admin.permissions < 3) {
+          //Administrators cannot grant admin access
+          $("#modifyPermissionsAdmin").hide();
+        }
+        $("#user_permissionLevel").val(user.permissions);
+        $("#modify_user_permissions_modal").modal();
+      });
+
+      //Set dynamic event listener for modal submit
+      $("body").on("click", "button.modifyPermissions", function () {
+        let previousValue = user.permissions;
+        user.permissions = $("#user_permissionLevel").val();
+        if (user.permissions != previousValue ) $(".btn_update").click();
+      });
+    }
+  }
+
   getAuthenticatedUser()
     .then(function (foundUser) {
-      user = foundUser;
-      displaySetting(user);
+      userId = getVariables.get('uval');
+      if ( userId ) {
+        //Do avoid potential asynchronous inconsistencies, call here.
+        administrativeUser = foundUser;
+        getAdministrativeUserSelection(userId)
+            .then(function (foundUser) {
+              user = foundUser;
+              displaySetting(user);
+              administrativeSetup(administrativeUser);
+            })
+            .catch(function (err) {
+              window.location.href = "./admin.html";
+            });
+      }
+      else {
+        user = foundUser;
+        if ( user.permissions > 1 ) $("#navAdmin").show();
+        displaySetting(user);
+      }
     })
     .catch(function (err) {
-      window.location.href = "/login";
+      window.location.href = "./login.html";
     });
+
 
   $(".list-group-item").click(function (event) {
     event.preventDefault();
