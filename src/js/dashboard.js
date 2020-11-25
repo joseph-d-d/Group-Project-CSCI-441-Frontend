@@ -160,6 +160,7 @@ $(document).ready(async function () {
       case "My Reservations":
         $("#form_update").load("./modals/MyReservations.html", function () {
           getReservation(user.email);
+          addDeleteButtonListener();
         });
         break;
       default:
