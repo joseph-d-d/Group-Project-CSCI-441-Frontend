@@ -28,18 +28,21 @@ $(document).ready(function() {
           window.location.href = "./dashboard.html";
        });
 
+   /**
+    * Populate modal values
+    */
    populate_users();
    get_parking_spaces();
    get_payment_rate();
 
-   /*
-    * Load required modal
+   /**
+    * Load required modals
     */
    $("#selectUserModal").load("modals/admin/modal_select_user.html");
    $("#selectSpaceModal").load("modals/admin/modal_select_space.html");
    $("#adjustPaymentRateModal").load("modals/admin/modal_adjust_payment_rate.html");
 
-   /*
+   /**
     * Set jQuery listeners for modal triggers
     */
 
@@ -55,7 +58,7 @@ $(document).ready(function() {
       $("#adjust_payment_rate").modal();
    });
 
-   /*
+   /**
     * Add event listener for dynamically generated elements
     */
 
@@ -98,6 +101,10 @@ $(document).ready(function() {
       adjust_payment_rate();
    });
 
+   /**
+    *
+    * @param id
+    */
 
    function verify_user(id) {
       var ajax_call = $.ajax({
@@ -115,6 +122,10 @@ $(document).ready(function() {
          }
       });
    }
+
+   /**
+    * Retrieves all users
+    */
 
    function populate_users() {
       var ajax_call = $.ajax({
@@ -136,6 +147,10 @@ $(document).ready(function() {
       });
    }
 
+   /**
+    * Retrieves the parking space object and appends individual spaces to the drop down list.
+    * Also assigns the parkingSpace global to the original parking space object.
+    */
    function get_parking_spaces() {
       var ajax_call = $.ajax({
          method: 'GET',
@@ -163,6 +178,9 @@ $(document).ready(function() {
       });
    }
 
+   /**
+    * Updates the parking lot object as a whole
+    */
    function update_parking_spaces() {
 
       var ajax_call = $.ajax({
@@ -187,6 +205,9 @@ $(document).ready(function() {
       });
    }
 
+   /**
+    * Retrieves the current payment rate
+    */
    function get_payment_rate() {
       var ajax_call = $.ajax({
          method: 'GET',
@@ -205,6 +226,9 @@ $(document).ready(function() {
       });
    }
 
+   /**
+    * Updates the payment rate
+    */
    function adjust_payment_rate() {
       let amount = $("#paymentRate").val();
       let id = $("#paymentRate").data("id");

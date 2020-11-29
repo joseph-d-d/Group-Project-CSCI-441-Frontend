@@ -18,16 +18,20 @@
 </head>
 
 <body class="text-center">
-<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+<div class="d-flex w-100 h-100 p-3 mx-auto flex-column">
     <header class="masthead mb-auto">
-        <div class="h-100 mb-4">
-            <h3 class="masthead-brand d-flex align-items-center justify-content-center">
-                <img src="./src/images/logo.svg" alt="logo" class="mx-2">
-                Group D
-            </h3>
-            <nav class="nav nav-masthead justify-content-center">
-                <a class="nav-link active" href="index.html">Home</a>
-            </nav>
+        <div class="row justify-content-center">
+            <div class="col h-100 mb-4 cover-container">
+                <h3 class="masthead-brand d-flex align-items-center justify-content-center">
+                    <img src="./src/images/logo.svg" alt="logo" class="mx-2">
+                    Group D
+                </h3>
+                <nav class="nav nav-masthead justify-content-center">
+                    <a class="nav-link active" href="index.html">Home</a>
+                    <a class="nav-link" href="./admin.html">Admin</a>
+                    <a class="nav-link" href="./dashboard.html">Dashboard</a>
+                </nav>
+            </div>
         </div>
     </header>
 
@@ -42,9 +46,9 @@
             <div class="row justify-content-center mt-md-3">
                 <div class="col mt-md-5">
                     <div class="form-group">
-                        <input type="date" name="rpt_date_from" id="rpt_date_from">
-                        <input type="date" name="rpt_date_to" id="rpt_date_to">
-                        <button type="button" class="btn btn-outline-primary ml-3">Search</button>
+                        <input type="datetime-local" name="rpt_date_from" id="rpt_date_from">
+                        <input type="datetime-local" name="rpt_date_to" id="rpt_date_to">
+                        <button type="button" class="btn btn-outline-primary ml-3" id="rpt_revenue_search_button">Search</button>
                     </div>
                 </div>
             </div>
@@ -53,35 +57,16 @@
                     <table class="table table-hover">
                         <thead class="">
                         <tr>
-                            <th>Day</th>
-                            <th>Customer</th>
+                            <th>Email</th>
+                            <th>Start Datetime</th>
+                            <th>End Datetime</th>
                             <th>Duration</th>
                             <th>Paid Amount</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <div id="report_results">
-                            <tr>
-                                <td align="center">10/17/2020</td>
-                                <td align="center">Blaine Clark</td>
-                                <td align="center">8 hours</td>
-                                <td align="right">$63.87</td>
-                            </tr>
-                            <tr>
-                                <td align="center">10/17/2020</td>
-                                <td align="center">Some Guy</td>
-                                <td align="center">6 hours</td>
-                                <td align="right">$42.57</td>
-                            </tr>
-                        </div>
-                        <div id="report_summary">
-                            <tr>
-                                <td class="font-weight-bold" align="right" colspan="4">$106.44</td>
-                            </tr>
-                        </div>
+                        <tbody id="report_results"></tbody>
+                    </table>
                 </div>
-                </tbody>
-                </table>
             </div>
         </div>
     </main>
@@ -99,7 +84,7 @@
 <script src="./src/assets/bootstrap/js/bootstrap.min.js"></script>
 
 <!-- src/js -->
-<script src="./src/js/main.js"></script>
+<script src="./src/js/rptRevenue.js"></script>
 
 </body>
 
