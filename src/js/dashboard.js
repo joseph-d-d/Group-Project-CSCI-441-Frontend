@@ -10,6 +10,11 @@ $(document).ready(async function () {
   $("#modifyPermissions").hide();
 
   /**
+   * Administrator name is hidden by default
+   */
+  $("#adminUserView").hide();
+
+  /**
    * Search for GET variables in the URL
    */
   var administrativeUser  = {};
@@ -214,6 +219,7 @@ $(document).ready(async function () {
         user.permissions !== 3 &&
         !(user.permissions === 2 && admin.permissions < 3) ) {
       //Display admin content
+      $("#adminUserView").show();
       $("#adminName").text(admin.firstName + " " + admin.lastName);
       $("#modifyPermissions").show();
       $("#modalIncludes").load("modals/admin/modal_modify_user_permissions.html");
