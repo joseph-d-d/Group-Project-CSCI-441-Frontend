@@ -5,28 +5,28 @@ $(document).ready(function(){
     $(".form_reset").attr("action", window.location.pathname);
 
     $(".form_reset").submit(function(event){
-        // event.preventDefault();
+        event.preventDefault();
+        const user = {
+            password: $("#input_password").val(),
+        };
+
         // Send POST request to backend
-        // $.ajax({
-        //     type: "POST",
-        //     url: `${window.location.pathname}`,
-        //     data: JSON.stringify(user),
-        //     success: function(data){
-        //         alert(
-        //             `Success! Password for ${data} has been reset! Please check your email.`,
-        //         );
-        //         window.location.href = "/";
-        //     },
-        //     error: function(data){
-        //         if (data.status === 404) {
-        //             alert(
-        //                 `${data.responseText} does not exist. Please try again.`,
-        //             );
-        //             window.location.href = "/forgot";
-        //         }
-        //     },
-        //     dataType: "json",
-        //     contentType: "application/json",
-        // });
+        $.ajax({
+            type: "POST",
+            url: `${window.location.pathname}`,
+            data: JSON.stringify(user),
+            success: function(data){
+                alert(`Success! Password for ${data} has been reset!`);
+                window.location.href = "/login";
+            },
+            error: function(data){
+                if (data.status === 408 || data.status === 404) {
+                    alert(`Password reset has expired. Please try again.`);
+                    window.location.href = "/forgot";
+                }
+            },
+            dataType: "json",
+            contentType: "application/json",
+        });
     });
 });

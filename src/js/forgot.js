@@ -12,7 +12,7 @@ $(document).ready(function(){
             data: JSON.stringify(user),
             success: function(data){
                 alert(
-                    `Success! Password for ${data} has been reset! Please check your email.`,
+                    `Success! Password reset link has been sent to ${data}.`,
                 );
                 window.location.href = "/";
             },
