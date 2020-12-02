@@ -59,9 +59,9 @@ $(document).ready(function() {
                        let arrival = new Date(value.arrival);
                        let departure = new Date(value.departure);
                        let difference_in_hours =  ((((departure.getTime() - arrival.getTime()) / 1000) / 60) / 60);
-                       let amount = (difference_in_hours * payment_rate).toFixed(2);
-                       total_amount += amount;
-                       $("#report_results").html(
+                       let amount = value.amount;
+                       total_amount += parseInt(amount);
+                       $("#report_results").append(
                            "<tr>" +
                                "<td>" + value.email + "</td>" +
                                "<td>" + formatFullDateFromJSDateObject(arrival) + "</td>" +
