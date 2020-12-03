@@ -9,6 +9,7 @@ reservation_button.addEventListener("click", function (e) {
       phoneNumber: user.phone,
       storeID: chosen_store.value,
       dateTime: date_and_time.value,
+      amount: 0.00
     };
     $.post("http://localhost:3000/reservations", data);
     location.href = "./dashboard";
