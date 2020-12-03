@@ -4,7 +4,6 @@ const date_and_time = document.querySelector("#reservationTime");
 reservation_button.addEventListener("click", function (e) {
   e.preventDefault();
   $.get("http://localhost:3000/users/loggedIn", function (user) {
-    console.log(user);
     data = {
       email: user.email,
       phoneNumber: user.phone,

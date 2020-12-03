@@ -37,38 +37,16 @@
 
       <main role="main" class="inner cover">
         <div class="text-center">
-          <p>Please select the store you are visiting and time of visit</p>
-        <form class="form-reservation">
-          <label for="inputStore" class="sr-only">Store</label>
-          <select name="stores" id="storeSelector" class="form-control">
-            <option value="109">Store 1</option>
-            <option value="209">Store 2</option>
-            <option value="309">Store 3</option>
-            <option value="409">Store 4</option>
-            <option value="509">Store 5</option>
-            <option value="609">Store 6</option>
-            <option value="709">Store 7</option>
-            <option value="809">Store 8</option>
-            <option value="901">Store 9</option>
-            <option value="902">Store 10</option>
-            <option value="903">Store 11</option>
-            <option value="904">Store 12</option>
-            <option value="905">Store 13</option>
-            <option value="906">Store 14</option>
-            <option value="907">Store 15</option>
-            <option value="908">Store 16</option>
-            <option value="909">Store 17</option>
-            <option value="909">Store 18</option>
-          </select>
-          <label for="inputDateTime" class="sr-only">Reservation Date and Time</label>
-          <input type="datetime-local" id="reservationTime" name="reservationTime" class=form-control>
-
+          <p id="confirmation"> </p>
+          <p>Please Enter Pin</p>
+          
+        <form class="form-kiosk">
+          <input class="form-control" id="pinInput" type="text" >
           <button
-            id="reservationButton"
-            class="btn btn-lg btn-outline-primary btn-block"
-
+            id="enterButton"
+            class="btn btn-outline-primary btn-block form-control"
           >
-            Make Reservation
+            Enter
           </button>
         </form>
       </main>
@@ -86,6 +64,6 @@
     <script src="/src/assets/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- src/js -->
-    <script src="../src/js/reservation.js"></script>
+    <script src="../src/js/kiosk.js"></script>
   </body>
 </html>
